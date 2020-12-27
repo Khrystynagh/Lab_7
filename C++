@@ -1,0 +1,87 @@
+#include <iostream>
+#include <iomanip>
+#define _USE_MATH_DEFINES
+#include <cmath>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+void randArray(float*,int);
+void printArray(float*,int);
+int getMaxIndex(float*,int);
+int getMinIndex(float*,int);
+
+
+
+int main()
+{
+    srand( time( 0 ) );
+    int n;
+    float* A;
+    
+    cout << "Input size > ";
+    cin >> n;
+    
+    A = new float[n];
+    
+    randArray(A,n);
+    cout << "Array: ";
+    printArray(A,n);
+    
+    int maxIndex = getMaxIndex(A,n);
+    int minIndex = getMinIndex(A,n);
+    
+    float buffer = A[maxIndex];
+    A[maxIndex] = A[minIndex];
+    A[minIndex] = buffer;
+    
+    cout << "Result: ";
+    printArray(A,n);
+}
+
+void randArray(float* A,int n)
+{
+    for(int i=0;i<n;i++)
+    {
+        A[i] = (float)(rand()%100 - 50);
+    }
+}
+
+void printArray(float* A,int n)
+{
+    for(int i=0;i<n;i++)
+    {
+        cout << A[i] << " ";
+    }
+    cout << endl;
+}
+
+int getMaxIndex(float* A,int n)
+{
+    int index = 0;
+    
+    for(int i=0;i<n;i++)
+    {
+        if(A[i] > A[index])
+        {
+            index = i;
+        }
+    }
+    
+    return index;
+}
+
+int getMinIndex(float* A,int n)
+{
+    int index = 0;
+    
+    for(int i=0;i<n;i++)
+    {
+        if(A[i] < A[index])
+        {
+            index = i;
+        }
+    }
+    
+    return index;
+}
